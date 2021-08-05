@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Postes;
 use Illuminate\Http\Request;
 
-class PostesController extends Controller
+class CommentsPost extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +14,10 @@ class PostesController extends Controller
      */
     public function index()
     {
-        return Postes::all();
+        return CommentsPost::all();
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -26,11 +28,11 @@ class PostesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=> 'required',
-            'description'=>'required',
+            'comment'=> 'required',
+            'post_id'=>'required',
             'creator'=>'required'
         ]);
-        return Postes::create($request->all());
+        return CommentsPost::create($request->all());
     }
 
     /**
@@ -41,7 +43,7 @@ class PostesController extends Controller
      */
     public function show($id)
     {
-        return Postes::find($id);
+        return CommentsPost::find($id);
     }
 
     /**
@@ -53,9 +55,9 @@ class PostesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $postes = Postes::find($id);
-        $postes->update($request->all());
-        return $postes;
+        $CommentsPost = CommentsPost::find($id);
+        $CommentsPost->update($request->all());
+        return $CommentsPost;
     }
 
     /**
@@ -66,18 +68,6 @@ class PostesController extends Controller
      */
     public function destroy($id)
     {
-        return Postes::destroy($id);
-    }
-
-    /**
-     * Search for a Post
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function search($title)
-    {
-        $result = isset($title) ? Postes::where('title','like','%'.$title.'%')->get() : ['error','what are you doing'];
-        return $result;
+        return CommentsPost::destroy($id);
     }
 }

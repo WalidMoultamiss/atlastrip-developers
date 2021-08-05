@@ -14,11 +14,13 @@ class CreatePostesTable extends Migration
     public function up()
     {
         Schema::create('postes', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('title');
+            $table->integer('user_id')->unsigned();
             $table->string('description')->nullable();
-            $table->decimal('votes',5);
-            $table->decimal('creator',5);
+            $table->integer('votes')->nullable();
+            $table->string('tags')->nullable();
+            $table->integer('creator');
             $table->timestamps();
         });
     }
